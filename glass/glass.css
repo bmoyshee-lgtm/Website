@@ -1,0 +1,86 @@
+/* ============================================================================
+   Decorative WebGL layer — styles. Everything cinematic is scoped under
+   html.glass-on, a class set by glass-scene.js only once the scene really runs.
+   Delete the /glass folder (and its two tags in the layout) and the site still
+   works: pages keep the static layout defined in /css/site.css.
+   ============================================================================ */
+#webgl {
+    position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0;
+    opacity: 0; pointer-events: none; outline: none; transition: opacity 1.4s ease;
+}
+html.glass-ready #webgl { opacity: 1; }
+.scroll-stage { display: none; }
+.story-progress { display: none; }
+
+/* ---- Home, "story" mode: chapters become fixed overlays above the canvas ---- */
+html.glass-on .scroll-stage { display: block; height: 560vh; pointer-events: none; }
+html.glass-on .story { position: fixed; inset: 0; z-index: 10; pointer-events: none; }
+html.glass-ready .story-poster { opacity: 0; transition: opacity 1.2s ease; }
+html.glass-on .slide { position: absolute; bottom: 12%; min-height: 0; padding: 0; border: 0; display: block; pointer-events: none; }
+html.glass-on .slide.active { pointer-events: auto; }
+html.glass-on #slide-1 { left: var(--gutter); bottom: 13%; width: min(600px, 42vw); min-height: 0; padding: 0; display: block; }
+html.glass-on #slide-2 { left: calc(50vw + 20px); right: var(--gutter); }
+html.glass-on #slide-3 { left: var(--gutter); width: min(620px, 46vw); }
+html.glass-on #slide-4 { left: var(--gutter); width: min(620px, 46vw); }
+
+/* Everything but the title fades and rises; the title lines rise out of a mask. */
+html.glass-on .slide > *:not(.slide-title) {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 1s var(--ease) 0.3s, transform 1s var(--ease) 0.3s;
+}
+html.glass-on .slide.active > *:not(.slide-title) { opacity: 1; transform: none; }
+html.glass-on .slide-title .line {
+    display: block; overflow: hidden; white-space: nowrap;      /* two lines, never three: see fitTitles() */
+    padding: 0.06em 0 0.16em; margin: -0.06em 0 -0.16em;
+}
+html.glass-on .slide-title .line.muted { color: #aab4c0; }
+html.glass-on .line-inner {
+    display: block; transform: translateY(112%); opacity: 0; filter: blur(12px);
+    transition: transform 1.15s var(--ease), opacity 0.7s ease-out, filter 1.05s var(--ease);
+}
+html.glass-on .line.muted .line-inner { transition-delay: 0.09s; }
+html.glass-on .slide.active .slide-title .line-inner { transform: none; opacity: 1; filter: blur(0); }
+
+html.glass-init .slide, html.glass-init .slide * { transition: none !important; }
+
+/* Chapter rail, right edge */
+html.glass-on .story-progress {
+    display: block; position: fixed; top: 50%; right: clamp(12px, 2.6vw, 40px); transform: translateY(-50%);
+    z-index: 5; pointer-events: none; transition: opacity 0.6s;
+}
+.story-dashes { display: flex; flex-direction: column; gap: 12px; }
+.story-dash { width: 2px; height: 40px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; }
+.story-dash-fill { width: 100%; height: 0%; background: var(--blue); border-radius: 2px; }
+body.contact-open .story-progress { opacity: 0; }
+
+/* The block that follows the stage rises over the scene, which stays as a backdrop. */
+html.glass-on .after-stage { z-index: 8; border-top: 0; }
+
+/* Portrait / narrow: stacked composition, the camera framing alternates with it. */
+@media (max-width: 900px), (max-aspect-ratio: 4/5) {
+    html.glass-on .slide, html.glass-on #slide-1, html.glass-on #slide-2, html.glass-on #slide-3, html.glass-on #slide-4 {
+        left: var(--gutter); right: var(--gutter); width: auto; max-width: none; bottom: auto;
+    }
+    html.glass-on #slide-1, html.glass-on #slide-3 { top: calc(var(--header-h) + 26px); }
+    html.glass-on #slide-2, html.glass-on #slide-4 { bottom: 6%; top: auto; }
+    html.glass-on .slide-title { font-size: clamp(34px, 10vw, 64px); margin-bottom: 14px; }
+    html.glass-on .slide-desc { font-size: 15px; line-height: 1.55; max-width: 38ch; }
+    html.glass-on .slide .actions { margin-top: 20px; gap: 14px 22px; }
+    html.glass-on .benefit p { font-size: 13px; line-height: 1.4; }
+    html.glass-on .benefit strong { font-size: 14.5px; }
+    html.glass-on .benefit-icon { flex-basis: 28px; width: 28px; height: 28px; }
+}
+
+/* ---- Contact, "contact" mode: a real glass slab is pinned behind the form card ---- */
+body.has-glass-card [data-glass-card] {
+    border-color: transparent; background: transparent;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+body.has-glass-card [data-glass-card]::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    padding: 1px; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 28%,
+                                rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.35) 100%);
+}
+body.has-glass-card [data-glass-card] > * { position: relative; z-index: 1; }

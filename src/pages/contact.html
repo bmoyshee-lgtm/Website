@@ -1,0 +1,59 @@
+<!--
+title: Contact — Discuter de votre projet avec Starlight & Co Group
+description: Contactez Starlight & Co Group à Yaoundé : décrivez votre projet de communication, de digital, d'intermédiation commerciale ou d'événementiel et recevez une première piste de travail.
+path: /contact/
+glass: contact
+-->
+<!-- SIGNATURE MOMENT (Contact): a real glass slab sits behind the form card. The form
+     itself is plain HTML; without the canvas the card keeps its CSS background. -->
+<section class="page-hero" aria-labelledby="contact-title">
+  <div class="wrap contact-layout">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h1 class="display" id="contact-title">Parlons de <span class="muted">votre projet.</span></h1>
+      <p class="lead">Décrivez-nous votre besoin en quelques lignes. Nous revenons vers vous avec une première piste de travail.</p>
+      <!-- CMS: siteSettings.contact (email, phone, address, socials[]) -->
+      <dl class="contact-details">
+        <div><dt>E-mail</dt><dd><a href="mailto:starlightandcosarl@gmail.com">starlightandcosarl@gmail.com</a></dd></div>
+        <div><dt>Téléphone</dt><dd><ul class="tel-list">
+            <li><a href="tel:+79966676700">+7 996 667 67 00</a><span class="tel-tag">International</span></li>
+            <li><a href="tel:+237697856826">+237 697 856 826</a><span class="tel-tag">Cameroun</span></li>
+          </ul></dd></div>
+        <div><dt>Adresse</dt><dd>[ADDRESS]<br>Yaoundé, Cameroun</dd></div>
+        <div><dt>Réseaux</dt><dd>Starlight and Co Group
+          <ul class="social-list" aria-label="Réseaux sociaux">
+            <!-- CMS: siteSettings.socialLinks[] (platform, account, url). Add href="..." once the profile URLs are supplied. -->
+            <li><a class="social-link" data-social="facebook" aria-label="Facebook : Starlight and Co Group" title="Facebook : Starlight and Co Group" rel="noopener me"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a></li>
+            <li><a class="social-link" data-social="instagram" aria-label="Instagram : Starlight and Co Group" title="Instagram : Starlight and Co Group" rel="noopener me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a></li>
+            <li><a class="social-link" data-social="tiktok" aria-label="TikTok : Starlight and Co Group" title="TikTok : Starlight and Co Group" rel="noopener me"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li>
+          </ul></dd></div>
+      </dl>
+    </div>
+
+    <form class="card form-card" id="project-form" data-glass-card action="/api/contact" method="post">
+      <div class="field-grid">
+        <label class="field"><span class="field-label">Votre nom <em aria-hidden="true">*</em></span><input type="text" name="name" autocomplete="name" placeholder="Nom et prénom" required></label>
+        <label class="field"><span class="field-label">Votre e-mail <em aria-hidden="true">*</em></span><input type="email" name="email" autocomplete="email" placeholder="vous@organisation.com" required></label>
+        <label class="field"><span class="field-label">Téléphone <small>optionnel</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="+237"></label>
+        <label class="field"><span class="field-label">Organisation <small>optionnel</small></span><input type="text" name="organization" autocomplete="organization" placeholder="Nom de la structure"></label>
+        <label class="field field-wide"><span class="field-label">Pôle concerné <small>optionnel</small></span>
+          <!-- CMS: options generated from the "pole" documents -->
+          <select name="pole">
+            <option value="">Je ne sais pas encore</option>
+            <option>Communication &amp; Marketing</option>
+            <option>Digital</option>
+            <option>Intermédiation commerciale</option>
+            <option>Événementiel</option>
+            <option>Commerce &amp; Services</option>
+          </select>
+        </label>
+        <label class="field field-wide"><span class="field-label">Votre projet <em aria-hidden="true">*</em></span><textarea name="project" rows="4" placeholder="Ce que vous aimeriez faire, pour qui, et pour quand." required></textarea></label>
+      </div>
+      <div class="form-foot">
+        <p class="form-note">Les champs marqués * sont nécessaires pour vous répondre.</p>
+        <button class="btn" type="submit">Envoyer ma demande <span class="btn-arrow" aria-hidden="true">&rarr;</span></button>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
